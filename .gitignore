@@ -1,0 +1,11 @@
+# byte compiled python
+__pycache__
+*.py[cod]
+
+# virtualenv
+.venv
+
+# ide, filesystem
+.idea
+.DS_Store
+*.swp
