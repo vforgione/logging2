@@ -9,3 +9,14 @@ __pycache__
 .idea
 .DS_Store
 *.swp
+
+# sphinx
+docs/build
+!docs/build/.gitkeep
+
+# builds
+*.egg*
+
+# testing
+.cache
+.coverage
