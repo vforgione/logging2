@@ -1,3 +1,4 @@
+import syslog
 from enum import Enum
 
 
@@ -58,3 +59,18 @@ class LogLevel(Enum):
         :returns: is this level is greater than the other
         """
         return self.value > other.value
+
+    @property
+    def as_syslog(self) -> int:
+        """Translates the internal library value to its corresponding Syslog value.
+
+        :returns: the corresponding Syslog value
+        """
+        if self == LogLevel.debug:
+            return syslog.LOG_DEBUG
+        elif self == LogLevel.info:
+            return syslog.LOG_INFO
+        elif self == LogLevel.warning:
+            return syslog.LOG_WARNING
+        else:
+            return syslog.LOG_ERR

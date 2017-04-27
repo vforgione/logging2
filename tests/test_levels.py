@@ -1,3 +1,5 @@
+import syslog
+
 from logging2.levels import LogLevel
 
 
@@ -53,3 +55,10 @@ def test_gt():
         > LogLevel.info
         > LogLevel.debug
     )
+
+
+def test_syslog_eq():
+    assert LogLevel.debug.as_syslog == syslog.LOG_DEBUG
+    assert LogLevel.info.as_syslog == syslog.LOG_INFO
+    assert LogLevel.warning.as_syslog == syslog.LOG_WARNING
+    assert LogLevel.error.as_syslog == syslog.LOG_ERR
