@@ -3,8 +3,7 @@ from enum import Enum
 
 
 class LogLevel(Enum):
-    """A workflow control construct that enables setting a minimum level of
-    verbosity for log entries.
+    """A workflow control construct that enables setting a minimum level of verbosity for log entries.
     """
 
     debug: int = 0

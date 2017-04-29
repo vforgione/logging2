@@ -23,29 +23,35 @@ class TestSyslogHandler:
     def test_write(self):
         message = 'Hello, world!'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             data, address = self.server.recvfrom(1024)
             if len(data) > 0:
                 messages.append(data)
                 break
+
         priority = self.handler._get_priority(LogLevel.info)
         msg = '<{}>{}\000'.format(priority, message)
         expected = [bytes(msg, 'utf8')]
+
         assert messages == expected
 
     def test_write_non_ascii(self):
         message = '안녕하세요'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             data, address = self.server.recvfrom(1024)
             if len(data) > 0:
                 messages.append(data)
                 break
+
         priority = self.handler._get_priority(LogLevel.info)
         msg = '<{}>{}\000'.format(priority, message)
         expected = [bytes(msg, 'utf8')]
+
         assert messages == expected
 
     def test_create_name(self):
@@ -70,6 +76,7 @@ class TestTcpHandler:
     def test_write(self):
         message = 'Hello, world!'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             connection, address = self.server.accept()
@@ -77,12 +84,14 @@ class TestTcpHandler:
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 
     def test_write_non_ascii(self):
         message = '안녕하세요'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             connection, address = self.server.accept()
@@ -90,6 +99,7 @@ class TestTcpHandler:
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 
@@ -115,6 +125,7 @@ class TestTcpIPv6Handler:
     def test_write(self):
         message = 'Hello, world!'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             connection, address = self.server.accept()
@@ -122,12 +133,14 @@ class TestTcpIPv6Handler:
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 
     def test_write_non_ascii(self):
         message = '안녕하세요'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             connection, address = self.server.accept()
@@ -135,6 +148,7 @@ class TestTcpIPv6Handler:
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 
@@ -158,24 +172,28 @@ class TestUdpHandler:
     def test_write(self):
         message = 'Hello, world!'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             data, address = self.server.recvfrom(1024)
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 
     def test_write_non_ascii(self):
         message = '안녕하세요'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             data, address = self.server.recvfrom(1024)
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 
@@ -199,24 +217,28 @@ class TestUdpIPv6Handler:
     def test_write(self):
         message = 'Hello, world!'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             data, address = self.server.recvfrom(1024)
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 
     def test_write_non_ascii(self):
         message = '안녕하세요'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             data, address = self.server.recvfrom(1024)
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 
@@ -241,24 +263,28 @@ class TestUnixHandler:
     def test_write(self):
         message = 'Hello, world!'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             data, address = self.server.recvfrom(1024)
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 
     def test_write_non_ascii(self):
         message = '안녕하세요'
         self.handler.write(message, level=LogLevel.info)
+
         messages = []
         while True:
             data, address = self.server.recvfrom(1024)
             if len(data) > 0:
                 messages.append(data)
                 break
+
         expected = [bytes(message, 'utf8')]
         assert messages == expected
 

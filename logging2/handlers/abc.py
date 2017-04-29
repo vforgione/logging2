@@ -4,9 +4,8 @@ from logging2.levels import LogLevel
 
 
 class Handler:
-    """``Handler`` is the interface that all handlers must implement. It defines
-    the API for handlers - namely the ``write`` method of each that produces
-    the log entries.
+    """``Handler`` is the interface that all handlers must implement. It defines the API for handlers - namely the
+    ``write`` method of each that produces the log entries.
     """
 
     DEFAULT_LOG_LEVEL: LogLevel = LogLevel.info
@@ -19,8 +18,7 @@ class Handler:
         """Instantiates a new ``Handler``
 
         :param name: the name of the handler
-        :param level: the minimum level of verbosity/priority of the messages
-            this will log
+        :param level: the minimum level of verbosity/priority of the messages this will log
         """
         self.name = name or self._create_name()
         self.min_level: LogLevel = level or self.DEFAULT_LOG_LEVEL
@@ -34,8 +32,7 @@ class Handler:
         raise NotImplementedError  # pragma: no cover
 
     def _create_name(self) -> str:
-        """Creates the name for the handler - called from ``__init__`` if a
-         name is not given.
+        """Creates the name for the handler - called from ``__init__`` if a name is not given.
 
         :returns: an appropriate name for the handler
         """

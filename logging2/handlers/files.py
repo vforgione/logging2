@@ -7,12 +7,10 @@ from logging2.handlers.abc import Handler
 from logging2.levels import LogLevel
 
 
-# NOTE: This module does not provide handlers for rotating log files. The
-# rationale behind that is that all *NIX systems have software specifically
-# designed to do that, and it's much faster and reliable. Let's separate
-# concerns here: this logging software is meant to be both Pythonic and fast.
-# There's nothing Pythonic or fast about reinventing the wheel. A great utility
-# is ``logrotate``, which is available for Debian, Red Hat, and BSD systems.
+# NOTE: This module does not provide handlers for rotating log files. The rationale behind that is that all *NIX systems
+# have software specifically designed to do that, and it's much faster and reliable. Let's separate
+# concerns here: this logging software is meant to be both Pythonic and fast. There's nothing Pythonic or fast about
+# reinventing the wheel. A great utility is ``logrotate``, which is available for Debian, Red Hat, and BSD systems.
 
 # Linux Manpage: https://linux.die.net/man/8/logrotate
 # FreeBSD Manpage: https://www.freebsd.org/cgi/man.cgi?query=logrotate&manpath=SuSE+Linux/i386+11.3
@@ -40,8 +38,7 @@ class FileHandler(Handler):
         :param errors: how should errors be handled
         :param buffering: should the line be buffered
         :param name: the name of the handler
-        :param level: the minimum level of verbosity/priority of the messages
-            this will log
+        :param level: the minimum level of verbosity/priority of the messages this will log
         """
         self.fh: StreamReaderWriter = codecs.open(
             file_path, mode=mode, encoding=encoding, errors=errors,
@@ -60,8 +57,7 @@ class FileHandler(Handler):
             self.fh.flush()
 
     def _create_name(self) -> str:
-        """Creates the name for the handler - called from ``__init__`` if a
-         name is not given.
+        """Creates the name for the handler - called from ``__init__`` if a name is not given.
 
         :returns: the name of the file
         """

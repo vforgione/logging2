@@ -15,10 +15,10 @@ class SocketHandler(Handler):
             **kwargs
     ):
         """Instantiates a new ``SocketHandler``
+
         :param name: the name of the handler
         :param level: the minimum verbosity level to write log entries
-        :keyword host: the host portion of the connection -- this can be an
-            FQDN, IP or a local UNIX socket node name
+        :keyword host: the host portion of the connection -- this can be an FQDN, IP or a local UNIX socket node name
         :keyword port: the port number to connect on
         :keyword encoding: the message encoding
         :keyword family: the socket family -- for example AF_UNIX or AF_INET
@@ -61,8 +61,7 @@ class SocketHandler(Handler):
             self.socket.sendall(bytes(message, self.encoding))
 
     def _create_name(self) -> str:
-        """Creates the name for the handler - called from ``__init__`` if a
-         name is not given.
+        """Creates the name for the handler - called from ``__init__`` if a name is not given.
 
         :returns: a template of `({protocol} )?{host}(:{port})?`
         """
@@ -89,8 +88,7 @@ class SocketHandler(Handler):
 
 
 class TcpHandler(SocketHandler):
-    """A ``SocketHandler`` preconfigured to send TCP messages over a streaming
-    socket via IPv4.
+    """A ``SocketHandler`` preconfigured to send TCP messages over a streaming socket via IPv4.
     """
 
     def __init__(
@@ -103,8 +101,7 @@ class TcpHandler(SocketHandler):
     ):
         """Instantiates a new ``TcpHandler``
 
-        :param host: the server's hostname -- an FQDN, an IP address, anything
-            that can be resolved
+        :param host: the server's hostname -- an FQDN, an IP address, anything that can be resolved
         :param port: the server's port
         :param encoding: the message encoding
         :param name: the name of the handler
@@ -116,8 +113,7 @@ class TcpHandler(SocketHandler):
 
 
 class TcpIPv6Handler(SocketHandler):
-    """A ``SocketHandler`` preconfigured to send TCP messages over a streaming
-    socket via IPv6.
+    """A ``SocketHandler`` preconfigured to send TCP messages over a streaming socket via IPv6.
     """
 
     def __init__(
@@ -130,8 +126,7 @@ class TcpIPv6Handler(SocketHandler):
     ):
         """Instantiates a new ``TcpIPv6Handler``
 
-        :param host: the server's hostname -- an FQDN, an IP address, anything
-            that can be resolved
+        :param host: the server's hostname -- an FQDN, an IP address, anything that can be resolved
         :param port: the server's port
         :param encoding: the message encoding
         :param name: the name of the handler
@@ -156,8 +151,7 @@ class UdpHandler(SocketHandler):
     ):
         """Instantiates a new ``UdpHandler``
 
-        :param host: the server's hostname -- an FQDN, an IP address, anything
-            that can be resolved
+        :param host: the server's hostname -- an FQDN, an IP address, anything that can be resolved
         :param port: the server's port
         :param encoding: the message encoding
         :param name: the name of the handler
@@ -182,8 +176,7 @@ class UdpIPv6Handler(SocketHandler):
     ):
         """Instantiates a new ``UdpIPv6Handler``
 
-        :param host: the server's hostname -- an FQDN, an IP address, anything
-            that can be resolved
+        :param host: the server's hostname -- an FQDN, an IP address, anything that can be resolved
         :param port: the server's port
         :param encoding: the message encoding
         :param name: the name of the handler
@@ -195,8 +188,7 @@ class UdpIPv6Handler(SocketHandler):
 
 
 class UnixSocketHandler(SocketHandler):
-    """A ``SocketHandler`` preconfigured to send messages as datagrams to a
-    local UNIX socket.
+    """A ``SocketHandler`` preconfigured to send messages as datagrams to a local UNIX socket.
     """
 
     def __init__(
@@ -269,8 +261,7 @@ class SyslogHandler(SocketHandler):
         return priority
 
     def _create_name(self) -> str:
-        """Creates the name for the handler - called from ``__init__`` if a
-         name is not given.
+        """Creates the name for the handler - called from ``__init__`` if a name is not given.
 
         :returns: the template `syslog-{facility}`
         """

@@ -7,8 +7,7 @@ from logging2.levels import LogLevel
 
 
 class StreamingHandler(Handler):
-    """A generic ``Handler`` for writing log entries to a streaming endpoing
-    such as STDOUT or STDERR.
+    """A generic ``Handler`` for writing log entries to a streaming endpoint such as STDOUT or STDERR.
     """
 
     def __init__(
@@ -21,8 +20,7 @@ class StreamingHandler(Handler):
 
         :param stream: the output stream object
         :param name: the name of the handler
-        :param level: the minimum level of verbosity/priority of the messages
-            this will log
+        :param level: the minimum level of verbosity/priority of the messages this will log
         """
         self.stream: TextIOWrapper = stream
         super().__init__(name=name, level=level)
@@ -37,8 +35,7 @@ class StreamingHandler(Handler):
             self.stream.write(message)
 
     def _create_name(self) -> str:
-        """Creates the name for the handler - called from ``__init__`` if a
-         name is not given.
+        """Creates the name for the handler - called from ``__init__`` if a name is not given.
 
         :returns: the class name of the stream
         """
@@ -46,8 +43,8 @@ class StreamingHandler(Handler):
 
 
 class StdOutHandler(StreamingHandler):
-    """An implementation of the ``StreamingHandler`` with ``sys.stdout``
-    preconfigured as the stream and named as ``stdout``
+    """An implementation of the ``StreamingHandler`` with ``sys.stdout`` preconfigured as the stream and
+    named as ``stdout``
     """
 
     def __init__(
@@ -58,15 +55,14 @@ class StdOutHandler(StreamingHandler):
         """Initializes a new ``StdOutHandler``
 
         :param name: the name of the handler
-        :param level: the minimum level of verbosity/priority of the messages
-            this will log
+        :param level: the minimum level of verbosity/priority of the messages this will log
         """
         super().__init__(name=name, level=level, stream=stdout)
 
 
 class StdErrHandler(StreamingHandler):
-    """An implementation of the ``StreamingHandler`` with ``sys.stderr``
-    preconfigured as the stream and named as ``stderr``
+    """An implementation of the ``StreamingHandler`` with ``sys.stderr`` preconfigured as the stream and
+    named as ``stderr``
     """
 
     def __init__(
@@ -77,7 +73,6 @@ class StdErrHandler(StreamingHandler):
         """Initializes a new ``StdErrHandler``
 
         :param name: the name of the handler
-        :param level: the minimum level of verbosity/priority of the messages
-            this will log
+        :param level: the minimum level of verbosity/priority of the messages this will log
         """
         super().__init__(name=name, level=level, stream=stderr)

@@ -14,14 +14,11 @@ from logging2.levels import LogLevel
 
 
 class Logger:
-    """`A ``Logger`` is the main interface to passing user messages and
-    assembling metadata for log entries.
+    """`A ``Logger`` is the main interface to passing user messages and assembling metadata for log entries.
     """
 
     TEMPLATE_KEYS_REGEX = re.compile('\{(?P<key>\w+)\}')
-    BASE_TEMPLATE_KEYS = {
-        'timestamp', 'level', 'name', 'message', 'source', 'line',
-        'function', 'process'}
+    BASE_TEMPLATE_KEYS = {'timestamp', 'level', 'name', 'message', 'source', 'line', 'function', 'process'}
 
     DEFAULT_TEMPLATE: str = '{timestamp} {level} {name}: {message}'
     DEFAULT_TIMEZONE: tzinfo = _tz.utc
@@ -34,8 +31,7 @@ class Logger:
             template: Optional[str]=None,
             ensure_new_line: Optional[bool]=True,
             timezone: Optional[tzinfo]=None,
-            additional_context: Optional[Dict[str, Union[
-                object, Callable]]]=None,
+            additional_context: Optional[Dict[str, Union[object, Callable]]]=None,
             handler: Optional[Handler]=None,
             handlers: Optional[Iterable[Handler]]=None,
             level: Optional[LogLevel]=None
@@ -44,11 +40,9 @@ class Logger:
 
         :param name: the name of the logger
         :param template: the template used to create log entries
-        :param ensure_new_line: should the log entry always end with a new
-            line character
+        :param ensure_new_line: should the log entry always end with a new line character
         :param timezone: timezone for ISO 8601 timestamp formatting
-        :param additional_context: key-value pairs used to provide context to
-            template interpolation
+        :param additional_context: key-value pairs used to provide context to template interpolation
         :param handler: a handler to be registered to this logger
         :param handlers: a group of handlers to be registered to this logger
         :param level: sets the log level for the default handler
@@ -57,8 +51,7 @@ class Logger:
             self.name: str = name
             self.ensure_new_line: bool = ensure_new_line
             self.timezone: tzinfo = timezone or self.DEFAULT_TIMEZONE
-            self.additional_context: Optional[Dict[str, Union[
-                object, Callable]]] = additional_context or {}
+            self.additional_context: Optional[Dict[str, Union[object, Callable]]] = additional_context or {}
 
             self._template: str = None
             self._keys: Set[str] = None
@@ -66,14 +59,12 @@ class Logger:
 
             self._handlers: Dict[str, Handler] = {}
             if handler:
-                print(handler)
                 self.add_handler(handler)
             if handlers:
                 for handler in handlers:
                     self.add_handler(handler)
             if not len(self._handlers):
-                default_handler = self.DEFAULT_HANDLER_CLASS(
-                    level=level or self.DEFAULT_LOG_LEVEL)
+                default_handler = self.DEFAULT_HANDLER_CLASS(level=level or self.DEFAULT_LOG_LEVEL)
                 self.add_handler(default_handler)
 
             LogRegister.register_logger(self)
@@ -81,10 +72,6 @@ class Logger:
         else:
             registered = LogRegister.get_logger(name=name)
             self.__dict__ = registered.__dict__
-
-    # ----------
-    # properties
-    # ----------
 
     @property
     def template(self) -> str:
@@ -102,12 +89,8 @@ class Logger:
     def handlers(self) -> List[Handler]:
         return [handler for handler in self._handlers.values()]
 
-    # -----------------
-    # handler functions
-    # -----------------
-
     def add_handler(self, handler: Handler) -> None:
-        """Adds a new ``Handler`` to the list of handlers
+        """Adds a new ``Handler`` to the list of handlers.
 
         :param handler: the new handler
         """
@@ -116,64 +99,50 @@ class Logger:
             self._handlers[name] = handler
 
     def remove_handler(self, name: str) -> None:
-        """Removes a ``Handler`` from the list of handlers
+        """Removes a ``Handler`` from the list of handlers.
 
         :param name: the name of the handler to be removed
         """
         if name in self._handlers:
             del self._handlers[name]
 
-    # -----------------
-    # logging functions
-    # -----------------
-
     def debug(self, message: str, **context) -> None:
-        """Calls each registered ``Handler``'s ``write`` method to produce
-        a debug log entry
+        """Calls each registered ``Handler``'s ``write`` method to produce a debug log entry.
 
         :param message: the user message to be written
-        :param context: additional key-value pairs to override template context
-            during interpoation
+        :param context: additional key-value pairs to override template context during interpolation
         """
         self._log(message=message, level=LogLevel.debug, **context)
 
     def info(self, message: str, **context) -> None:
-        """Calls each registered ``Handler``'s ``write`` method to produce an
-        info log entry
+        """Calls each registered ``Handler``'s ``write`` method to produce an info log entry.
 
         :param message: the user message to be written
-        :param context: additional key-value pairs to override template context
-            during interpoation
+        :param context: additional key-value pairs to override template context during interpolation
         """
         self._log(message=message, level=LogLevel.info, **context)
 
     def warning(self, message: str, **context) -> None:
-        """Calls each registered ``Handler``'s ``write`` method to produce a
-        warning log entry
+        """Calls each registered ``Handler``'s ``write`` method to produce a warning log entry.
 
         :param message: the user message to be written
-        :param context: additional key-value pairs to override template context
-            during interpoation
+        :param context: additional key-value pairs to override template context during interpolation
         """
         self._log(message=message, level=LogLevel.warning, **context)
 
     def error(self, message: str, **context) -> None:
-        """Calls each registered ``Handler``'s ``write`` method to produce an
-        error log entry
+        """Calls each registered ``Handler``'s ``write`` method to produce an error log entry.
 
         :param message: the user message to be written
-        :param context: additional key-value pairs to override template context
-            during interpoation
+        :param context: additional key-value pairs to override template context during interpolation
         """
         self._log(message=message, level=LogLevel.error, **context)
 
     def exception(self, message: str, **context) -> None:
-        """Calls each registered ``Handler``'s ``write`` method to produce an
-        exception log entry
+        """Calls each registered ``Handler``'s ``write`` method to produce an exception log entry.
 
         :param message: the user message to be written
-        :param context: additional key-value pairs to override template context
-            during interpoation
+        :param context: additional key-value pairs to override template context during interpolation
         """
         self._log(
             message=message, level=LogLevel.exception,
@@ -185,15 +154,12 @@ class Logger:
             level: LogLevel,
             capture_error: bool=False,
             **context) -> None:
-        """Perform all information retrieval, does template interpolation and
-        calls the handlers to write the message.
+        """Performs all information retrieval, does template interpolation and calls the handlers to write the message.
 
-        :param message: the `{message}` portion of the log entry
+        :param message: the ``{message}`` portion of the log entry
         :param level: the verbosity/priority level of the message
-        :param capture_error: should the calling frame be inspected for
-            any errors
-        :param context: key-value pairs to override template context during
-            interpolation
+        :param capture_error: should the calling frame be inspected for any errors
+        :param context: key-value pairs to override template context during interpolation
         """
         if self.ensure_new_line and not message.endswith('\n'):
             message = f'{message}\n'
@@ -227,12 +193,11 @@ class Logger:
         for handler in self._handlers.values():
             handler.write(output, level=level)
 
-    # -------
-    # helpers
-    # -------
-
     def _setup_template(self, template: str) -> None:
-        # Sets up the _template and _keys attributes
+        """Sets up the ``_template`` and ``_keys`` attributes based on the input template.
+
+        :param template: the template to be parsed
+        """
         keys = self.TEMPLATE_KEYS_REGEX.findall(template)
         if not keys:
             raise ValueError(f'No keys found in template `{template}`')
@@ -240,12 +205,18 @@ class Logger:
         self._keys = set(keys)
 
     def _get_timestamp(self) -> str:
-        # Gets the ISO 8601 formatted timestamp for the current time
+        """Gets the ISO 8601 formatted timestamp for the current time.
+
+        :returns: the ISO 8601 formatted timestamp for the current time
+        """
         return datetime.now(self.timezone).isoformat()
 
     @staticmethod
     def _get_exec_info() -> dict:
-        # Gets the execution information of the calling stack
+        """Gets the execution information of the calling stack.
+
+        :returns: a dictionary to be used for interpolating execution information into log entries
+        """
         frame = sys._getframe(3)
         fname, line, func, _, __ = inspect.getframeinfo(frame)
         if func == '<module>':
