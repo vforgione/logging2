@@ -7,6 +7,8 @@ from logging2.levels import LogLevel
 
 
 class SocketHandler(Handler):
+    """A generic ``Handler`` for writing messages to sockets.
+    """
 
     def __init__(
             self,
@@ -254,8 +256,8 @@ class SyslogHandler(SocketHandler):
         :param level: the message's priority value
         :returns: the computed syslog priority value
 
-        .. see: https://tools.ietf.org/html/rfc5424
-        .. see: http://www.kiwisyslog.com/help/syslog/index.html?protocol_levels.htm
+        .. seealso:: https://tools.ietf.org/html/rfc5424
+        .. seealso:: http://www.kiwisyslog.com/help/syslog/index.html?protocol_levels.htm
         """
         priority = (self.facility * 8) + level.as_syslog
         return priority

@@ -53,6 +53,7 @@ class Logger:
             self.timezone: tzinfo = timezone or self.DEFAULT_TIMEZONE
             self.additional_context: Optional[Dict[str, Union[object, Callable]]] = additional_context or {}
 
+            self._level: LogLevel = level
             self._template: str = None
             self._keys: Set[str] = None
             self._setup_template(template=template or self.DEFAULT_TEMPLATE)
@@ -63,9 +64,6 @@ class Logger:
             if handlers:
                 for handler in handlers:
                     self.add_handler(handler)
-            if not len(self._handlers):
-                default_handler = self.DEFAULT_HANDLER_CLASS(level=level or self.DEFAULT_LOG_LEVEL)
-                self.add_handler(default_handler)
 
             LogRegister.register_logger(self)
 
@@ -161,6 +159,10 @@ class Logger:
         :param capture_error: should the calling frame be inspected for any errors
         :param context: key-value pairs to override template context during interpolation
         """
+        if not len(self._handlers):
+            default_handler = self.DEFAULT_HANDLER_CLASS(level=self._level or self.DEFAULT_LOG_LEVEL)
+            self.add_handler(default_handler)
+
         if self.ensure_new_line and not message.endswith('\n'):
             message = f'{message}\n'
 

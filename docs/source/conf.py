@@ -14,7 +14,6 @@ sys.path.insert(0, os.path.abspath('../../logging2'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx_autodoc_annotation',
-    'sphinx.ext.viewcode'
 ]
 
 templates_path = ['_templates']
