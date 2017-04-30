@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# 1. runs test suite before committing code
-# 2. builds doc source
-# 3. makes docs
-
-./.venv/bin/py.test
-sphinx-apidoc -f -o docs/source/ ./logging2
-make -C docs/ html

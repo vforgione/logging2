@@ -34,6 +34,6 @@ Implementation of the Contract
 
 The user should only be concerned with three components:
 
-- Verbosity (``LogLevel``s)
-- Message Producers (``Handler``s)
-- Message Creation (``Logger``s)
+- Verbosity (``LogLevel``)
+- Message Producers (``Handler``)
+- Message Creation (``Logger``)
