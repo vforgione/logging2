@@ -1,19 +1,16 @@
 import codecs
 import os
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 # semantic versioning
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 
 
 here = os.path.abspath(os.path.dirname(__file__))
 
 with codecs.open(os.path.join(here, 'README.rst'), encoding='utf8') as fh:
     long_description = fh.read()
-
-with codecs.open(os.path.join(here, 'requirements.txt'), encoding='utf8') as fh:
-    dev_reqs = [line for line in fh]
 
 
 setup(
@@ -40,8 +37,5 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     keywords='logging',
-    packages=['logging2'],
-    extras_require={
-        'dev': dev_reqs,
-    }
+    packages=find_packages(where='.', exclude=['tests', 'docs'])
 )
