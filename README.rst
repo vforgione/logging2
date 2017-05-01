@@ -2,8 +2,14 @@
  logging2
 ==========
 
-A More Pythonic Logging System *or* You Deserve Better Than ``log4j``
+A More Pythonic Logging System; *or,* You Deserve Better Than ``log4j``
 
+.. image:: https://travis-ci.org/vforgione/logging2.svg?branch=master
+   :target: https://travis-ci.org/vforgione/logging2
+.. image:: https://coveralls.io/repos/github/vforgione/logging2/badge.svg?branch=master
+   :target: https://coveralls.io/github/vforgione/logging2?branch=master
+.. image:: https://readthedocs.org/projects/logging2/badge/?version=latest
+   :target: http://logging2.readthedocs.io/en/latest/?badge=latest
 
 -------------------------------
  The Basic Contract of Logging
@@ -37,3 +43,10 @@ The user should only be concerned with three components:
 - Verbosity (``LogLevel``)
 - Message Producers (``Handler``)
 - Message Creation (``Logger``)
+
+---------
+ Caveats
+---------
+
+**This logging utility is designed for Python 3.6 and better.** It will not be
+backported to support any earlier versions of Python.
