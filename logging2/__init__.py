@@ -16,7 +16,7 @@ class _LogRegister(metaclass=Singleton):
     def __contains__(self, item) -> bool:
         return self._loggers.__contains__(item)
 
-    def register_logger(self, logger: 'Logger') -> None:
+    def register_logger(self, logger: "Logger") -> None:
         """Registers a named ``Logger``.
 
         :param logger: the logger to be considered for registration
@@ -25,7 +25,7 @@ class _LogRegister(metaclass=Singleton):
         if name not in self._loggers:
             self._loggers[name] = logger
 
-    def get_logger(self, name) -> Union['Logger', None]:
+    def get_logger(self, name) -> Union["Logger", None]:
         """Gets a ``Logger`` from the register if it exists.
 
         :param name: the name of the logger

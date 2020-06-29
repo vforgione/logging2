@@ -10,11 +10,7 @@ class Handler:
 
     DEFAULT_LOG_LEVEL: LogLevel = LogLevel.info
 
-    def __init__(
-            self,
-            name: Optional[str]=None,
-            level: Optional[LogLevel]=None
-    ):
+    def __init__(self, name: Optional[str] = None, level: Optional[LogLevel] = None):
         """Instantiates a new ``Handler``
 
         :param name: the name of the handler

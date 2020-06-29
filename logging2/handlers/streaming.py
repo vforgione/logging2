@@ -11,10 +11,10 @@ class StreamingHandler(Handler):
     """
 
     def __init__(
-            self,
-            stream: TextIOWrapper,
-            name: Optional[str]=None,
-            level: Optional[LogLevel]=None
+        self,
+        stream: TextIOWrapper,
+        name: Optional[str] = None,
+        level: Optional[LogLevel] = None,
     ):
         """Initializes a new ``StreamingHandler``
 
@@ -48,9 +48,7 @@ class StdOutHandler(StreamingHandler):
     """
 
     def __init__(
-            self,
-            name: Optional[str]='stdout',
-            level: Optional[LogLevel]=None
+        self, name: Optional[str] = "stdout", level: Optional[LogLevel] = None
     ):
         """Initializes a new ``StdOutHandler``
 
@@ -66,9 +64,7 @@ class StdErrHandler(StreamingHandler):
     """
 
     def __init__(
-            self,
-            name: Optional[str]='stderr',
-            level: Optional[LogLevel]=None
+        self, name: Optional[str] = "stderr", level: Optional[LogLevel] = None
     ):
         """Initializes a new ``StdErrHandler``
 

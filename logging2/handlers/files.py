@@ -21,14 +21,14 @@ class FileHandler(Handler):
     """
 
     def __init__(
-            self,
-            file_path: str,
-            mode: Optional[str] = 'a',
-            encoding: Optional[str] = 'utf8',
-            errors: Optional[str] = 'strict',
-            buffering: Optional[int] = 1,
-            name: Optional[str] = None,
-            level: Optional[LogLevel] = None
+        self,
+        file_path: str,
+        mode: Optional[str] = "a",
+        encoding: Optional[str] = "utf8",
+        errors: Optional[str] = "strict",
+        buffering: Optional[int] = 1,
+        name: Optional[str] = None,
+        level: Optional[LogLevel] = None,
     ):
         """Instantiates a new ``FileHandler``
 
@@ -41,8 +41,8 @@ class FileHandler(Handler):
         :param level: the minimum level of verbosity/priority of the messages this will log
         """
         self.fh: StreamReaderWriter = codecs.open(
-            file_path, mode=mode, encoding=encoding, errors=errors,
-            buffering=buffering)
+            file_path, mode=mode, encoding=encoding, errors=errors, buffering=buffering
+        )
         super().__init__(name=name, level=level)
         self.encoding: str = encoding
 
@@ -61,5 +61,5 @@ class FileHandler(Handler):
 
         :returns: the name of the file
         """
-        fname = self.fh.name.split('/')[-1]
-        return re.sub('[^\w.]', '', str(fname))
+        fname = self.fh.name.split("/")[-1]
+        return re.sub("[^\w.]", "", str(fname))

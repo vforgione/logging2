@@ -11,10 +11,7 @@ class SocketHandler(Handler):
     """
 
     def __init__(
-            self,
-            name: Optional[str]=None,
-            level: Optional[LogLevel]=None,
-            **kwargs
+        self, name: Optional[str] = None, level: Optional[LogLevel] = None, **kwargs
     ):
         """Instantiates a new ``SocketHandler``
 
@@ -26,11 +23,11 @@ class SocketHandler(Handler):
         :keyword family: the socket family -- for example AF_UNIX or AF_INET
         :keyword type: the socket type -- for example SOCK_STREAM or SOCK_DGRAM
         """
-        self.host: str = kwargs.get('host')
-        self.port: str = kwargs.get('port')
-        self.encoding: str = kwargs.get('encoding', 'utf8')
-        self.family: int = kwargs.get('family')
-        self.type: int = kwargs.get('type')
+        self.host: str = kwargs.get("host")
+        self.port: str = kwargs.get("port")
+        self.encoding: str = kwargs.get("encoding", "utf8")
+        self.family: int = kwargs.get("family")
+        self.type: int = kwargs.get("type")
 
         super().__init__(name=name, level=level)
 
@@ -40,7 +37,7 @@ class SocketHandler(Handler):
             if self.port:
                 address = (self.host, self.port)
             else:
-                address = (self.host)
+                address = self.host
             if self.family and self.type:
                 sock = socket.socket(self.family, self.type)
             elif self.type:  # pragma: no cover
@@ -68,25 +65,25 @@ class SocketHandler(Handler):
         :returns: a template of `({protocol} )?{host}(:{port})?`
         """
         if self.port:
-            port = ':{}'.format(self.port)
+            port = ":{}".format(self.port)
         else:
-            port = ''
+            port = ""
 
         if self.family == socket.AF_UNIX:
-            stype = 'UNIX'
+            stype = "UNIX"
         elif self.type == socket.SOCK_STREAM:
-            stype = 'TCP'
+            stype = "TCP"
         elif self.type == socket.SOCK_DGRAM:
-            stype = 'UDP'
+            stype = "UDP"
         else:
             stype = None  # pragma: no cover
 
         if stype:
-            host = ' {}'.format(self.host)
+            host = " {}".format(self.host)
         else:
             host = self.host  # pragma: no cover
 
-        return '{}{}{}'.format(stype, host, port)
+        return "{}{}{}".format(stype, host, port)
 
 
 class TcpHandler(SocketHandler):
@@ -94,12 +91,12 @@ class TcpHandler(SocketHandler):
     """
 
     def __init__(
-            self,
-            host: str,
-            port: int,
-            encoding: Optional[str]='utf8',
-            name: Optional[str]=None,
-            level: Optional[LogLevel]=None
+        self,
+        host: str,
+        port: int,
+        encoding: Optional[str] = "utf8",
+        name: Optional[str] = None,
+        level: Optional[LogLevel] = None,
     ):
         """Instantiates a new ``TcpHandler``
 
@@ -110,8 +107,14 @@ class TcpHandler(SocketHandler):
         :param level: the minimum verbosity level to write log entries
         """
         super().__init__(
-            name=name, level=level, host=host, port=port, family=socket.AF_INET,
-            type=socket.SOCK_STREAM, encoding=encoding)
+            name=name,
+            level=level,
+            host=host,
+            port=port,
+            family=socket.AF_INET,
+            type=socket.SOCK_STREAM,
+            encoding=encoding,
+        )
 
 
 class TcpIPv6Handler(SocketHandler):
@@ -119,12 +122,12 @@ class TcpIPv6Handler(SocketHandler):
     """
 
     def __init__(
-            self,
-            host: str,
-            port: int,
-            encoding: Optional[str]='utf8',
-            name: Optional[str]=None,
-            level: Optional[LogLevel]=None
+        self,
+        host: str,
+        port: int,
+        encoding: Optional[str] = "utf8",
+        name: Optional[str] = None,
+        level: Optional[LogLevel] = None,
     ):
         """Instantiates a new ``TcpIPv6Handler``
 
@@ -135,8 +138,14 @@ class TcpIPv6Handler(SocketHandler):
         :param level: the minimum verbosity level to write log entries
         """
         super().__init__(
-            name=name, level=level, host=host, port=port,
-            family=socket.AF_INET6, type=socket.SOCK_STREAM, encoding=encoding)
+            name=name,
+            level=level,
+            host=host,
+            port=port,
+            family=socket.AF_INET6,
+            type=socket.SOCK_STREAM,
+            encoding=encoding,
+        )
 
 
 class UdpHandler(SocketHandler):
@@ -144,12 +153,12 @@ class UdpHandler(SocketHandler):
     """
 
     def __init__(
-            self,
-            host: str,
-            port: int,
-            encoding: Optional[str]='utf8',
-            name: Optional[str]=None,
-            level: Optional[LogLevel]=None
+        self,
+        host: str,
+        port: int,
+        encoding: Optional[str] = "utf8",
+        name: Optional[str] = None,
+        level: Optional[LogLevel] = None,
     ):
         """Instantiates a new ``UdpHandler``
 
@@ -160,8 +169,14 @@ class UdpHandler(SocketHandler):
         :param level: the minimum verbosity level to write log entries
         """
         super().__init__(
-            name=name, level=level, host=host, port=port, family=socket.AF_INET,
-            type=socket.SOCK_DGRAM, encoding=encoding)
+            name=name,
+            level=level,
+            host=host,
+            port=port,
+            family=socket.AF_INET,
+            type=socket.SOCK_DGRAM,
+            encoding=encoding,
+        )
 
 
 class UdpIPv6Handler(SocketHandler):
@@ -169,12 +184,12 @@ class UdpIPv6Handler(SocketHandler):
     """
 
     def __init__(
-            self,
-            host: str,
-            port: int,
-            encoding: Optional[str]='utf8',
-            name: Optional[str]=None,
-            level: Optional[LogLevel]=None
+        self,
+        host: str,
+        port: int,
+        encoding: Optional[str] = "utf8",
+        name: Optional[str] = None,
+        level: Optional[LogLevel] = None,
     ):
         """Instantiates a new ``UdpIPv6Handler``
 
@@ -185,8 +200,14 @@ class UdpIPv6Handler(SocketHandler):
         :param level: the minimum verbosity level to write log entries
         """
         super().__init__(
-            name=name, level=level, host=host, port=port,
-            family=socket.AF_INET6, type=socket.SOCK_DGRAM, encoding=encoding)
+            name=name,
+            level=level,
+            host=host,
+            port=port,
+            family=socket.AF_INET6,
+            type=socket.SOCK_DGRAM,
+            encoding=encoding,
+        )
 
 
 class UnixSocketHandler(SocketHandler):
@@ -194,11 +215,11 @@ class UnixSocketHandler(SocketHandler):
     """
 
     def __init__(
-            self,
-            node: str,
-            encoding: Optional[str]='utf8',
-            name: Optional[str]=None,
-            level: Optional[LogLevel]=None
+        self,
+        node: str,
+        encoding: Optional[str] = "utf8",
+        name: Optional[str] = None,
+        level: Optional[LogLevel] = None,
     ):
         """Instantiates a new ``UnixHandler``
 
@@ -208,8 +229,13 @@ class UnixSocketHandler(SocketHandler):
         :param level: the minimum verbosity level to write log entries
         """
         super().__init__(
-            name=name, level=level, host=node, family=socket.AF_UNIX,
-            type=socket.SOCK_DGRAM, encoding=encoding)
+            name=name,
+            level=level,
+            host=node,
+            family=socket.AF_UNIX,
+            type=socket.SOCK_DGRAM,
+            encoding=encoding,
+        )
 
 
 class SyslogHandler(SocketHandler):
@@ -217,13 +243,13 @@ class SyslogHandler(SocketHandler):
     """
 
     def __init__(
-            self,
-            facility: Optional[int]=syslog.LOG_USER,
-            host: Optional[str]='localhost',
-            port: Optional[int]=514,
-            encoding: Optional[str]='utf8',
-            name: Optional[str]=None,
-            level: Optional[LogLevel]=None
+        self,
+        facility: Optional[int] = syslog.LOG_USER,
+        host: Optional[str] = "localhost",
+        port: Optional[int] = 514,
+        encoding: Optional[str] = "utf8",
+        name: Optional[str] = None,
+        level: Optional[LogLevel] = None,
     ):
         """Instantiates a new ``SyslogHandler``
 
@@ -236,8 +262,14 @@ class SyslogHandler(SocketHandler):
         """
         self.facility = facility
         super().__init__(
-            name=name, level=level, host=host, port=port, family=socket.AF_INET,
-            type=socket.SOCK_DGRAM, encoding=encoding)
+            name=name,
+            level=level,
+            host=host,
+            port=port,
+            family=socket.AF_INET,
+            type=socket.SOCK_DGRAM,
+            encoding=encoding,
+        )
 
     def write(self, message: str, level: LogLevel) -> None:
         """Writes the full log entry to the configured syslog endpoint
@@ -247,7 +279,7 @@ class SyslogHandler(SocketHandler):
         """
         if level >= self.min_level:
             priority = self._get_priority(level)
-            message = f'<{priority}>{message}\000'
+            message = f"<{priority}>{message}\000"
             self.socket.sendall(bytes(message, self.encoding))
 
     def _get_priority(self, level: LogLevel) -> int:
@@ -267,4 +299,4 @@ class SyslogHandler(SocketHandler):
 
         :returns: the template `syslog-{facility}`
         """
-        return f'syslog-{self.facility}'
+        return f"syslog-{self.facility}"
