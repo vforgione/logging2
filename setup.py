@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 
 # semantic versioning
-VERSION = "0.1.2"
+VERSION = "0.1.3"
 
 
 here = os.path.abspath(os.path.dirname(__file__))
