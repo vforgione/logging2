@@ -2,14 +2,20 @@ import os
 import socket
 import syslog
 
-from logging2.handlers.sockets import SyslogHandler, TcpHandler, TcpIPv6Handler, \
-    UdpHandler, UdpIPv6Handler, UnixSocketHandler
+from logging2.handlers.sockets import (
+    SyslogHandler,
+    TcpHandler,
+    TcpIPv6Handler,
+    UdpHandler,
+    UdpIPv6Handler,
+    UnixSocketHandler,
+)
 from logging2.levels import LogLevel
 
 
 class TestSyslogHandler:
     def setup_method(self, method):
-        self.host = 'localhost'
+        self.host = "localhost"
         self.port = 8514
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -21,7 +27,7 @@ class TestSyslogHandler:
         self.server.close()
 
     def test_write(self):
-        message = 'Hello, world!'
+        message = "Hello, world!"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -32,13 +38,13 @@ class TestSyslogHandler:
                 break
 
         priority = self.handler._get_priority(LogLevel.info)
-        msg = '<{}>{}\000'.format(priority, message)
-        expected = [bytes(msg, 'utf8')]
+        msg = "<{}>{}\000".format(priority, message)
+        expected = [bytes(msg, "utf8")]
 
         assert messages == expected
 
     def test_write_non_ascii(self):
-        message = '안녕하세요'
+        message = "안녕하세요"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -49,18 +55,18 @@ class TestSyslogHandler:
                 break
 
         priority = self.handler._get_priority(LogLevel.info)
-        msg = '<{}>{}\000'.format(priority, message)
-        expected = [bytes(msg, 'utf8')]
+        msg = "<{}>{}\000".format(priority, message)
+        expected = [bytes(msg, "utf8")]
 
         assert messages == expected
 
     def test_create_name(self):
-        assert self.handler.name == 'syslog-{}'.format(syslog.LOG_USER)
+        assert self.handler.name == "syslog-{}".format(syslog.LOG_USER)
 
 
 class TestTcpHandler:
     def setup_method(self, method):
-        self.host = 'localhost'
+        self.host = "localhost"
         self.port = 8089
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -74,7 +80,7 @@ class TestTcpHandler:
         self.server.close()
 
     def test_write(self):
-        message = 'Hello, world!'
+        message = "Hello, world!"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -85,11 +91,11 @@ class TestTcpHandler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_write_non_ascii(self):
-        message = '안녕하세요'
+        message = "안녕하세요"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -100,16 +106,16 @@ class TestTcpHandler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_create_name(self):
-        assert self.handler.name == 'TCP {}:{}'.format(self.host, self.port)
+        assert self.handler.name == "TCP {}:{}".format(self.host, self.port)
 
 
 class TestTcpIPv6Handler:
     def setup_method(self, method):
-        self.host = 'localhost'
+        self.host = "localhost"
         self.port = 8089
 
         self.server = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
@@ -123,7 +129,7 @@ class TestTcpIPv6Handler:
         self.server.close()
 
     def test_write(self):
-        message = 'Hello, world!'
+        message = "Hello, world!"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -134,11 +140,11 @@ class TestTcpIPv6Handler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_write_non_ascii(self):
-        message = '안녕하세요'
+        message = "안녕하세요"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -149,16 +155,16 @@ class TestTcpIPv6Handler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_create_name(self):
-        assert self.handler.name == 'TCP {}:{}'.format(self.host, self.port)
+        assert self.handler.name == "TCP {}:{}".format(self.host, self.port)
 
 
 class TestUdpHandler:
     def setup_method(self, method):
-        self.host = 'localhost'
+        self.host = "localhost"
         self.port = 8089
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -170,7 +176,7 @@ class TestUdpHandler:
         self.server.close()
 
     def test_write(self):
-        message = 'Hello, world!'
+        message = "Hello, world!"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -180,11 +186,11 @@ class TestUdpHandler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_write_non_ascii(self):
-        message = '안녕하세요'
+        message = "안녕하세요"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -194,16 +200,16 @@ class TestUdpHandler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_create_name(self):
-        assert self.handler.name == 'UDP {}:{}'.format(self.host, self.port)
+        assert self.handler.name == "UDP {}:{}".format(self.host, self.port)
 
 
 class TestUdpIPv6Handler:
     def setup_method(self, method):
-        self.host = 'localhost'
+        self.host = "localhost"
         self.port = 8089
 
         self.server = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)
@@ -215,7 +221,7 @@ class TestUdpIPv6Handler:
         self.server.close()
 
     def test_write(self):
-        message = 'Hello, world!'
+        message = "Hello, world!"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -225,11 +231,11 @@ class TestUdpIPv6Handler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_write_non_ascii(self):
-        message = '안녕하세요'
+        message = "안녕하세요"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -239,16 +245,16 @@ class TestUdpIPv6Handler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_create_name(self):
-        assert self.handler.name == 'UDP {}:{}'.format(self.host, self.port)
+        assert self.handler.name == "UDP {}:{}".format(self.host, self.port)
 
 
 class TestUnixHandler:
     def setup_method(self, method):
-        self.node = '/tmp/unix.node'
+        self.node = "/tmp/unix.node"
         if os.path.exists(self.node):
             os.remove(self.node)
 
@@ -261,7 +267,7 @@ class TestUnixHandler:
         self.server.close()
 
     def test_write(self):
-        message = 'Hello, world!'
+        message = "Hello, world!"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -271,11 +277,11 @@ class TestUnixHandler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_write_non_ascii(self):
-        message = '안녕하세요'
+        message = "안녕하세요"
         self.handler.write(message, level=LogLevel.info)
 
         messages = []
@@ -285,8 +291,8 @@ class TestUnixHandler:
                 messages.append(data)
                 break
 
-        expected = [bytes(message, 'utf8')]
+        expected = [bytes(message, "utf8")]
         assert messages == expected
 
     def test_create_name(self):
-        assert self.handler.name == 'UNIX {}'.format(self.node)
+        assert self.handler.name == "UNIX {}".format(self.node)

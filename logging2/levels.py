@@ -19,7 +19,7 @@ class LogLevel(Enum):
         """
         return self.name.upper()
 
-    def __lt__(self, other: 'LogLevel') -> bool:
+    def __lt__(self, other: "LogLevel") -> bool:
         """Checks if this ``LogLevel`` is less than another
 
         :param other: the other level to test against
@@ -27,7 +27,7 @@ class LogLevel(Enum):
         """
         return self.value < other.value
 
-    def __le__(self, other: 'LogLevel') -> bool:
+    def __le__(self, other: "LogLevel") -> bool:
         """Checks if this ``LogLevel`` is less than or equal to another
 
         :param other: the other level to test against
@@ -35,7 +35,7 @@ class LogLevel(Enum):
         """
         return self.value <= other.value
 
-    def __eq__(self, other: 'LogLevel') -> bool:
+    def __eq__(self, other: "LogLevel") -> bool:
         """Checks if this ``LogLevel`` is equal to another
 
         :param other: the other level to test against
@@ -43,7 +43,7 @@ class LogLevel(Enum):
         """
         return self.value == other.value
 
-    def __ge__(self, other: 'LogLevel') -> bool:
+    def __ge__(self, other: "LogLevel") -> bool:
         """Checks if this ``LogLevel`` is greater than or equal to another
 
         :param other: the other level to test against
@@ -51,7 +51,7 @@ class LogLevel(Enum):
         """
         return self.value >= other.value
 
-    def __gt__(self, other: 'LogLevel') -> bool:
+    def __gt__(self, other: "LogLevel") -> bool:
         """Checks if this ``LogLevel`` is greater than another
 
         :param other: the other level to test against

@@ -1,0 +1,7 @@
+black==19.10b0
+capturer==3.0
+coveralls==2.0.0
+pytest==5.4.3
+pytest-cov==2.10.0
+Sphinx==3.1.1
+sphinx-autodoc-annotation==1.0.post1

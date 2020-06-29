@@ -34,7 +34,7 @@ provide a custom template.
 If you only need the default handler but want to change its verbosity, all you need to do is set
 the ``level`` parameter of the logger on instantiation::
 
-   >>> from logging2 import Logger, LegLevel
+   >>> from logging2 import Logger, LogLevel
    >>> logger = Logger('app', level=LogLevel.error)
    >>> logger.info('Hello, world!')  # nothing
    >>> logger.error('Hello, world!')
